@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # Python Catalog Service
+  catalog-service:
+    build: ./catalog-service
+    container_name: nekomart-catalog
+    ports:
+      - "8000:8000"
+    environment:
+      - LOG_LEVEL=info
+    restart: unless-stopped
+
+  # Rust Checkout Service
+  checkout-service:
+    build: ./checkout-service
+    container_name: nekomart-checkout
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
