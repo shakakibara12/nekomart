@@ -53,5 +53,22 @@ def read_root():
     return {"service": "catalog", "status": "healthy"}
 
 
+@app.get("/products", response_model=List[Product])
+def get_products():
+    """Retrieve all Japanese goods."""
+    return PRODUCTS_DB
+
+
+@app.get("/products/{product_id}", response_model=Product)
+def get_product(product_id: int):
+    """Retrieve specific product details."""
+    for product in PRODUCTS_DB:
+        if product.id == product_id:
+            return product
+
+    # Raise a 404 error instead of returning a dict with 200 OK
+    raise HTTPException(status_code=404, detail="Product not found")
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
