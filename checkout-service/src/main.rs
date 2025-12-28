@@ -1,9 +1,10 @@
 use actix_web::{App, HttpResponse, HttpServer, Responder, web};
 use serde::{Deserialize, Serialize};
+use serde_json::json;
 use std::sync::Mutex;
 
 // Data Structures
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 struct OrderItem {
     product_id: u32,
     quantity: u32,
@@ -29,7 +30,10 @@ struct AppState {
 
 // Health Check
 async fn health() -> impl Responder {
-    HttpResponse::Ok().json("{\"service\": \"checkout\", \"status\": \"healthy\"}")
+    HttpResponse::Ok().json(json!({
+    "service": "checkout",
+    "status": "healthy"
+    }))
 }
 
 // Create Order Endpoint
