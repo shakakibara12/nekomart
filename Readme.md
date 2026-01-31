@@ -75,7 +75,39 @@ Build and run both services using Docker:
 
 from the root of the project
 ```bash
-podman compose -f docker-compose.yml up 
+podman compose up
+```
+
+---
+
+### Verification
+
+Once either method is running, you can verify the services using `curl` in a new terminal.
+
+**1. Check Health Status**
+```bash
+# Python Service
+curl http://localhost:8000/
+
+# Rust Service
+curl http://localhost:8080/
+```
+
+**2. Test Catalog Endpoints**
+```bash
+# Get all products
+curl http://localhost:8000/products
+
+# Get specific product (ID 1)
+curl http://localhost:8000/products/1
+```
+
+**3. Test Checkout Endpoint**
+```bash
+# Create a new order
+curl -X POST http://localhost:8080/order \
+     -H "Content-Type: application/json" \
+     -d '{"user_id": "user123", "items": [{"product_id": 1, "quantity": 2}]}'
 ```
 
 ---
