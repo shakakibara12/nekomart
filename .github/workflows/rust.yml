@@ -16,9 +16,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: shell
-      run: cd checkout-service
     - name: Build
       run: cargo build --verbose
+      working-directory: ./checkout-service
+
     - name: Run tests
       run: cargo test --verbose
+      working-directory: ./checkout-service
